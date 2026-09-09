@@ -1,0 +1,25 @@
+{
+  "name": "hasm-parser",
+  "version": "1.0.0",
+  "description": "Tree-sitter grammar from hasm",
+  "main": "binds/node",
+  "scripts": {
+    "generate": "tree-sitter generate",
+    "test": "tree-sitter test",
+    "parse": "tree-sitter parse"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Helix-ISA/hasm-parser.git"
+  },
+  "keywords": [
+    "tree-sitter",
+    "hasm",
+    "assembly"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Helix-ISA/hasm-parser/issues"
+  },
+  "homepage": "https://github.com/Helix-ISA/hasm-parser#readme"
+}
