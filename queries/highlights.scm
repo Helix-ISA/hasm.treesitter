@@ -1,35 +1,37 @@
-; Instructions
-(two_operand_opcode) @keyword
+(rrr_opcode) @keyword
+(rri_opcode) @keyword
+(rr_opcode) @keyword
+(j_opcode) @keyword
+(shift_immediate_opcode) @keyword
+(load_opcode) @keyword
+(store_opcode) @keyword
+(branch_opcode) @keyword
+(conditional_move_opcode) @keyword
+(zero_operand_opcode) @keyword
 (one_operand_opcode) @keyword
-(zero_operand_instruction) @keyword
 
-; Width suffixes: .b .w .d .q
-(width) @type
-
-; Registers: r0, r1, r31
 (register) @variable
-
-; Numbers
 (number) @number
 
-; Labels
 (label
   name: (identifier) @label)
 
-; Comments
+(branch_instruction
+  target: (identifier) @function)
+
+(j_instruction
+  target: (identifier) @function)
+
 (comment) @comment
 
-; Memory brackets
 [
   "["
   "]"
 ] @punctuation.bracket
 
-; Operators
 [
   "+"
   "-"
 ] @operator
 
-; Commas
 "," @punctuation.delimiter

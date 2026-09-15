@@ -66,7 +66,43 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "two_operand_instruction"
+          "name": "rrr_instruction"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "rri_instruction"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "rr_instruction"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "shift_immediate_instruction"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "load_instruction"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "store_instruction"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "branch_instruction"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "j_instruction"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "conditional_move_instruction"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cs_instruction"
         },
         {
           "type": "SYMBOL",
@@ -78,7 +114,7 @@
         }
       ]
     },
-    "two_operand_instruction": {
+    "rrr_instruction": {
       "type": "SEQ",
       "members": [
         {
@@ -86,40 +122,15 @@
           "name": "opcode",
           "content": {
             "type": "SYMBOL",
-            "name": "two_operand_opcode"
+            "name": "rrr_opcode"
           }
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "."
-                },
-                {
-                  "type": "FIELD",
-                  "name": "width",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "width"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
           "type": "FIELD",
-          "name": "operand1",
+          "name": "rd",
           "content": {
             "type": "SYMBOL",
-            "name": "operand"
+            "name": "register"
           }
         },
         {
@@ -128,90 +139,31 @@
         },
         {
           "type": "FIELD",
-          "name": "operand2",
+          "name": "rs1",
           "content": {
             "type": "SYMBOL",
-            "name": "operand"
-          }
-        }
-      ]
-    },
-    "one_operand_instruction": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "opcode",
-          "content": {
-            "type": "SYMBOL",
-            "name": "one_operand_opcode"
+            "name": "register"
           }
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "."
-                },
-                {
-                  "type": "FIELD",
-                  "name": "width",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "width"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "STRING",
+          "value": ","
         },
         {
           "type": "FIELD",
-          "name": "operand1",
+          "name": "rs2",
           "content": {
             "type": "SYMBOL",
-            "name": "operand"
+            "name": "register"
           }
         }
       ]
     },
-    "zero_operand_instruction": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "opcode",
-          "content": {
-            "type": "STRING",
-            "value": "ret"
-          }
-        }
-      ]
-    },
-    "two_operand_opcode": {
+    "rrr_opcode": {
       "type": "TOKEN",
       "content": {
         "type": "CHOICE",
         "members": [
-          {
-            "type": "STRING",
-            "value": "mov"
-          },
-          {
-            "type": "STRING",
-            "value": "ld"
-          },
-          {
-            "type": "STRING",
-            "value": "st"
-          },
           {
             "type": "STRING",
             "value": "add"
@@ -219,6 +171,18 @@
           {
             "type": "STRING",
             "value": "sub"
+          },
+          {
+            "type": "STRING",
+            "value": "mul"
+          },
+          {
+            "type": "STRING",
+            "value": "div"
+          },
+          {
+            "type": "STRING",
+            "value": "rem"
           },
           {
             "type": "STRING",
@@ -231,103 +195,381 @@
           {
             "type": "STRING",
             "value": "xor"
+          },
+          {
+            "type": "STRING",
+            "value": "slt"
+          },
+          {
+            "type": "STRING",
+            "value": "sltu"
           }
         ]
       }
     },
-    "one_operand_opcode": {
+    "rri_instruction": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "opcode",
+          "content": {
+            "type": "SYMBOL",
+            "name": "rri_opcode"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "rd",
+          "content": {
+            "type": "SYMBOL",
+            "name": "register"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "FIELD",
+          "name": "rs1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "register"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "FIELD",
+          "name": "immediate",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        }
+      ]
+    },
+    "rri_opcode": {
       "type": "TOKEN",
       "content": {
         "type": "CHOICE",
         "members": [
           {
             "type": "STRING",
-            "value": "not"
+            "value": "addi"
           },
           {
             "type": "STRING",
-            "value": "beq"
+            "value": "andi"
           },
           {
             "type": "STRING",
-            "value": "bne"
+            "value": "ori"
           },
           {
             "type": "STRING",
-            "value": "jmp"
+            "value": "xori"
           },
           {
             "type": "STRING",
-            "value": "call"
+            "value": "slti"
+          },
+          {
+            "type": "STRING",
+            "value": "sltui"
+          },
+          {
+            "type": "STRING",
+            "value": "jalr"
           }
         ]
       }
     },
-    "width": {
-      "type": "CHOICE",
+    "j_instruction": {
+      "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "b"
+          "type": "FIELD",
+          "name": "opcode",
+          "content": {
+            "type": "SYMBOL",
+            "name": "j_opcode"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "rd",
+          "content": {
+            "type": "SYMBOL",
+            "name": "register"
+          }
         },
         {
           "type": "STRING",
-          "value": "w"
+          "value": ","
         },
         {
-          "type": "STRING",
-          "value": "d"
-        },
-        {
-          "type": "STRING",
-          "value": "q"
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
         }
       ]
     },
-    "operand": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "register"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "number"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "memory"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "identifier"
-        }
-      ]
-    },
-    "register": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "r([0-9]|[12][0-9]|3[01])"
-      }
-    },
-    "number": {
+    "j_opcode": {
       "type": "TOKEN",
       "content": {
         "type": "CHOICE",
         "members": [
           {
-            "type": "PATTERN",
-            "value": "[0-9]+"
+            "type": "STRING",
+            "value": "jal"
+          }
+        ]
+      }
+    },
+    "rr_instruction": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "opcode",
+          "content": {
+            "type": "SYMBOL",
+            "name": "rr_opcode"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "rd",
+          "content": {
+            "type": "SYMBOL",
+            "name": "register"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "FIELD",
+          "name": "rs1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "register"
+          }
+        }
+      ]
+    },
+    "rr_opcode": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "sll"
           },
           {
-            "type": "PATTERN",
-            "value": "0[xX][0-9a-fA-F]+"
+            "type": "STRING",
+            "value": "slr"
           },
           {
-            "type": "PATTERN",
-            "value": "0[bB][01]+"
+            "type": "STRING",
+            "value": "sar"
+          }
+        ]
+      }
+    },
+    "shift_immediate_instruction": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "opcode",
+          "content": {
+            "type": "SYMBOL",
+            "name": "shift_immediate_opcode"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "rd",
+          "content": {
+            "type": "SYMBOL",
+            "name": "register"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "FIELD",
+          "name": "immediate",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        }
+      ]
+    },
+    "shift_immediate_opcode": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "slli"
+          },
+          {
+            "type": "STRING",
+            "value": "slri"
+          },
+          {
+            "type": "STRING",
+            "value": "sari"
+          }
+        ]
+      }
+    },
+    "load_instruction": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "opcode",
+          "content": {
+            "type": "SYMBOL",
+            "name": "load_opcode"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "rd",
+          "content": {
+            "type": "SYMBOL",
+            "name": "register"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "FIELD",
+          "name": "address",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "memory"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "number"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "load_opcode": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "lb"
+          },
+          {
+            "type": "STRING",
+            "value": "lq"
+          },
+          {
+            "type": "STRING",
+            "value": "lh"
+          },
+          {
+            "type": "STRING",
+            "value": "lw"
+          },
+          {
+            "type": "STRING",
+            "value": "lbu"
+          },
+          {
+            "type": "STRING",
+            "value": "lqu"
+          },
+          {
+            "type": "STRING",
+            "value": "lhu"
+          }
+        ]
+      }
+    },
+    "store_instruction": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "opcode",
+          "content": {
+            "type": "SYMBOL",
+            "name": "store_opcode"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "address",
+          "content": {
+            "type": "SYMBOL",
+            "name": "memory"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "FIELD",
+          "name": "rs",
+          "content": {
+            "type": "SYMBOL",
+            "name": "register"
+          }
+        }
+      ]
+    },
+    "store_opcode": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "sb"
+          },
+          {
+            "type": "STRING",
+            "value": "sq"
+          },
+          {
+            "type": "STRING",
+            "value": "sh"
+          },
+          {
+            "type": "STRING",
+            "value": "sw"
           }
         ]
       }
@@ -400,9 +642,393 @@
         }
       ]
     },
+    "branch_instruction": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "opcode",
+          "content": {
+            "type": "SYMBOL",
+            "name": "branch_opcode"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "rs1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "register"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "FIELD",
+          "name": "rs2",
+          "content": {
+            "type": "SYMBOL",
+            "name": "register"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        }
+      ]
+    },
+    "branch_opcode": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "beq"
+          },
+          {
+            "type": "STRING",
+            "value": "bne"
+          },
+          {
+            "type": "STRING",
+            "value": "blt"
+          },
+          {
+            "type": "STRING",
+            "value": "bge"
+          },
+          {
+            "type": "STRING",
+            "value": "bltu"
+          },
+          {
+            "type": "STRING",
+            "value": "bgeu"
+          }
+        ]
+      }
+    },
+    "conditional_move_instruction": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "opcode",
+          "content": {
+            "type": "SYMBOL",
+            "name": "conditional_move_opcode"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "rd",
+          "content": {
+            "type": "SYMBOL",
+            "name": "register"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "FIELD",
+          "name": "condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        }
+      ]
+    },
+    "conditional_move_opcode": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "movz"
+          },
+          {
+            "type": "STRING",
+            "value": "movp"
+          },
+          {
+            "type": "STRING",
+            "value": "movn"
+          }
+        ]
+      }
+    },
+    "cs_instruction": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "opcode",
+          "content": {
+            "type": "STRING",
+            "value": "cs"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "rd",
+          "content": {
+            "type": "SYMBOL",
+            "name": "register"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "FIELD",
+          "name": "rs1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "register"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "FIELD",
+          "name": "rs2",
+          "content": {
+            "type": "SYMBOL",
+            "name": "register"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "FIELD",
+          "name": "condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "condition"
+          }
+        }
+      ]
+    },
+    "condition": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "eq"
+          },
+          {
+            "type": "STRING",
+            "value": "ne"
+          },
+          {
+            "type": "STRING",
+            "value": "lt"
+          },
+          {
+            "type": "STRING",
+            "value": "le"
+          },
+          {
+            "type": "STRING",
+            "value": "gt"
+          },
+          {
+            "type": "STRING",
+            "value": "ge"
+          },
+          {
+            "type": "STRING",
+            "value": "ltu"
+          },
+          {
+            "type": "STRING",
+            "value": "leu"
+          },
+          {
+            "type": "STRING",
+            "value": "gtu"
+          },
+          {
+            "type": "STRING",
+            "value": "geu"
+          }
+        ]
+      }
+    },
+    "one_operand_instruction": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "opcode",
+          "content": {
+            "type": "SYMBOL",
+            "name": "one_operand_opcode"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "operand",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "register"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "number"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "one_operand_opcode": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "not"
+          },
+          {
+            "type": "STRING",
+            "value": "jmp"
+          },
+          {
+            "type": "STRING",
+            "value": "call"
+          }
+        ]
+      }
+    },
+    "zero_operand_instruction": {
+      "type": "FIELD",
+      "name": "opcode",
+      "content": {
+        "type": "SYMBOL",
+        "name": "zero_operand_opcode"
+      }
+    },
+    "zero_operand_opcode": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "scall"
+          },
+          {
+            "type": "STRING",
+            "value": "strap"
+          },
+          {
+            "type": "STRING",
+            "value": "sret"
+          },
+          {
+            "type": "STRING",
+            "value": "wfi"
+          },
+          {
+            "type": "STRING",
+            "value": "ret"
+          }
+        ]
+      }
+    },
+    "register": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "r([0-9]|[12][0-9]|3[01])"
+      }
+    },
+    "number": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "-"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "[0-9]+"
+              },
+              {
+                "type": "PATTERN",
+                "value": "0[xX][0-9a-fA-F]+"
+              },
+              {
+                "type": "PATTERN",
+                "value": "0[bB][01]+"
+              }
+            ]
+          }
+        ]
+      }
+    },
     "identifier": {
-      "type": "PATTERN",
-      "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+      }
     },
     "comment": {
       "type": "TOKEN",
@@ -415,7 +1041,7 @@
           },
           {
             "type": "PATTERN",
-            "value": ".*"
+            "value": "[^\\n]*"
           }
         ]
       }
