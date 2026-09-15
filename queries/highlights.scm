@@ -2,6 +2,7 @@
 (rri_opcode) @keyword
 (rr_opcode) @keyword
 (j_opcode) @keyword
+(cs_opcode) @keyword
 (shift_immediate_opcode) @keyword
 (load_opcode) @keyword
 (store_opcode) @keyword
@@ -21,6 +22,8 @@
 
 (j_instruction
   target: (identifier) @function)
+
+(condition) @constant.builtin
 
 (comment) @comment
 

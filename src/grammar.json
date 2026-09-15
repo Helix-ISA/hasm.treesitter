@@ -791,8 +791,8 @@
           "type": "FIELD",
           "name": "opcode",
           "content": {
-            "type": "STRING",
-            "value": "cs"
+            "type": "SYMBOL",
+            "name": "cs_opcode"
           }
         },
         {
@@ -841,6 +841,26 @@
         }
       ]
     },
+    "cs_opcode": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "csl"
+          },
+          {
+            "type": "STRING",
+            "value": "csinc"
+          },
+          {
+            "type": "STRING",
+            "value": "csneg"
+          }
+        ]
+      }
+    },
     "condition": {
       "type": "TOKEN",
       "content": {
@@ -860,27 +880,11 @@
           },
           {
             "type": "STRING",
-            "value": "le"
-          },
-          {
-            "type": "STRING",
-            "value": "gt"
-          },
-          {
-            "type": "STRING",
             "value": "ge"
           },
           {
             "type": "STRING",
             "value": "ltu"
-          },
-          {
-            "type": "STRING",
-            "value": "leu"
-          },
-          {
-            "type": "STRING",
-            "value": "gtu"
           },
           {
             "type": "STRING",

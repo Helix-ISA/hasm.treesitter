@@ -115,8 +115,8 @@
         "required": true,
         "types": [
           {
-            "type": "cs",
-            "named": false
+            "type": "cs_opcode",
+            "named": true
           }
         ]
       },
@@ -682,8 +682,8 @@
     "named": true
   },
   {
-    "type": "cs",
-    "named": false
+    "type": "cs_opcode",
+    "named": true
   },
   {
     "type": "identifier",

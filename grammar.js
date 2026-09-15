@@ -206,7 +206,7 @@ module.exports = grammar({
     )),
 
     cs_instruction: $ => seq(
-      field('opcode', 'cs'),
+      field('opcode', $.cs_opcode),
       field('rd', $.register),
       ',',
       field('rs1', $.register),
@@ -216,16 +216,18 @@ module.exports = grammar({
       field('condition', $.condition)
     ),
 
+    cs_opcode: $=> token(choice(
+      'csl',
+      'csinc',
+      'csneg'
+    )),
+
     condition: $ => token(choice(
       'eq',
       'ne',
       'lt',
-      'le',
-      'gt',
       'ge',
       'ltu',
-      'leu',
-      'gtu',
       'geu'
     )),
 
