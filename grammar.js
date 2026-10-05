@@ -42,7 +42,8 @@ module.exports = grammar({
       field('rd', $.register),
       ',',
       field('rs1', $.register),
-      field('rs1', $.register)
+      ',',
+      field('rs2', $.register)
     ),
 
     r_type_mnemonic: $ => token(choice(

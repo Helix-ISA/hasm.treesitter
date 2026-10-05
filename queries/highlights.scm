@@ -11,10 +11,10 @@
   name: (identifier) @label)
 
 (b_type_format
-  target: (identifier) @function)
+  symbol: (identifier) @function)
 
 (j_type_format
-  target: (identifier) @function)
+  symbol: (identifier) @function)
 
 (comment) @comment
 
