@@ -118,8 +118,12 @@
           }
         },
         {
+          "type": "STRING",
+          "value": ","
+        },
+        {
           "type": "FIELD",
-          "name": "rs1",
+          "name": "rs2",
           "content": {
             "type": "SYMBOL",
             "name": "register"
@@ -186,7 +190,7 @@
               "name": "mnemonic",
               "content": {
                 "type": "SYMBOL",
-                "name": "i_format_mnemonic"
+                "name": "i_type_mnemonic"
               }
             },
             {
@@ -231,7 +235,7 @@
               "name": "mnemonic",
               "content": {
                 "type": "SYMBOL",
-                "name": "i_format_mnemonic"
+                "name": "i_type_mnemonic"
               }
             },
             {
@@ -258,7 +262,7 @@
         }
       ]
     },
-    "i_format_mnemonic": {
+    "i_type_mnemonic": {
       "type": "TOKEN",
       "content": {
         "type": "CHOICE",

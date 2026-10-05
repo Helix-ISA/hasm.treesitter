@@ -61,7 +61,7 @@ module.exports = grammar({
 
     i_type_format: $ => choice(
       seq(
-        field('mnemonic', $.i_format_mnemonic),
+        field('mnemonic', $.i_type_mnemonic),
         field('rd', $.register),
         ',',
         field('rs1', $.register),
@@ -70,14 +70,14 @@ module.exports = grammar({
       ),
 
       seq(
-        field('mnemonic', $.i_format_mnemonic),
+        field('mnemonic', $.i_type_mnemonic),
         field('rd', $.register),
         ',',
         field('memory', $.memory)
       ),
     ),
 
-    i_format_mnemonic: $ => token(choice(
+    i_type_mnemonic: $ => token(choice(
       'addi',
       'andi',
       'ori',

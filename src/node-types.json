@@ -79,7 +79,7 @@
         "required": true,
         "types": [
           {
-            "type": "i_format_mnemonic",
+            "type": "i_type_mnemonic",
             "named": true
           }
         ]
@@ -254,7 +254,17 @@
         ]
       },
       "rs1": {
-        "multiple": true,
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "register",
+            "named": true
+          }
+        ]
+      },
+      "rs2": {
+        "multiple": false,
         "required": true,
         "types": [
           {
@@ -378,7 +388,7 @@
     "extra": true
   },
   {
-    "type": "i_format_mnemonic",
+    "type": "i_type_mnemonic",
     "named": true
   },
   {
