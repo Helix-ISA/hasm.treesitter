@@ -1,15 +1,8 @@
-(rrr_opcode) @keyword
-(rri_opcode) @keyword
-(rr_opcode) @keyword
-(j_opcode) @keyword
-(cs_opcode) @keyword
-(shift_immediate_opcode) @keyword
-(load_opcode) @keyword
-(store_opcode) @keyword
-(branch_opcode) @keyword
-(conditional_move_opcode) @keyword
-(zero_operand_opcode) @keyword
-(one_operand_opcode) @keyword
+(r_type_mnemonic) @keyword
+(i_type_mnemonic) @keyword
+(s_type_mnemonic) @keyword
+(b_type_mnemonic) @keyword
+(j_type_mnemonic) @keyword
 
 (register) @variable
 (number) @number
@@ -17,13 +10,11 @@
 (label
   name: (identifier) @label)
 
-(branch_instruction
+(b_type_format
   target: (identifier) @function)
 
-(j_instruction
+(j_type_format
   target: (identifier) @function)
-
-(condition) @constant.builtin
 
 (comment) @comment
 

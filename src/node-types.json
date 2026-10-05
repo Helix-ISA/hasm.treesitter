@@ -1,19 +1,14 @@
 [
   {
-    "type": "blank_line",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "branch_instruction",
+    "type": "b_type_format",
     "named": true,
     "fields": {
-      "opcode": {
+      "mnemonic": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "branch_opcode",
+            "type": "b_type_mnemonic",
             "named": true
           }
         ]
@@ -38,7 +33,7 @@
           }
         ]
       },
-      "target": {
+      "symbol": {
         "multiple": false,
         "required": true,
         "types": [
@@ -51,71 +46,40 @@
     }
   },
   {
-    "type": "conditional_move_instruction",
+    "type": "blank_line",
     "named": true,
-    "fields": {
-      "condition": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "opcode": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "conditional_move_opcode",
-            "named": true
-          }
-        ]
-      },
-      "rd": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "register",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      }
-    }
+    "fields": {}
   },
   {
-    "type": "cs_instruction",
+    "type": "i_type_format",
     "named": true,
     "fields": {
-      "condition": {
+      "immediate": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
-            "type": "condition",
+            "type": "number",
             "named": true
           }
         ]
       },
-      "opcode": {
+      "memory": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "memory",
+            "named": true
+          }
+        ]
+      },
+      "mnemonic": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "cs_opcode",
+            "type": "i_format_mnemonic",
             "named": true
           }
         ]
@@ -132,17 +96,7 @@
       },
       "rs1": {
         "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "register",
-            "named": true
-          }
-        ]
-      },
-      "rs2": {
-        "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "register",
@@ -161,66 +115,38 @@
       "required": true,
       "types": [
         {
-          "type": "branch_instruction",
+          "type": "b_type_format",
           "named": true
         },
         {
-          "type": "conditional_move_instruction",
+          "type": "i_type_format",
           "named": true
         },
         {
-          "type": "cs_instruction",
+          "type": "j_type_format",
           "named": true
         },
         {
-          "type": "j_instruction",
+          "type": "r_type_format",
           "named": true
         },
         {
-          "type": "load_instruction",
-          "named": true
-        },
-        {
-          "type": "one_operand_instruction",
-          "named": true
-        },
-        {
-          "type": "rr_instruction",
-          "named": true
-        },
-        {
-          "type": "rri_instruction",
-          "named": true
-        },
-        {
-          "type": "rrr_instruction",
-          "named": true
-        },
-        {
-          "type": "shift_immediate_instruction",
-          "named": true
-        },
-        {
-          "type": "store_instruction",
-          "named": true
-        },
-        {
-          "type": "zero_operand_instruction",
+          "type": "s_type_format",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "j_instruction",
+    "type": "j_type_format",
     "named": true,
     "fields": {
-      "opcode": {
+      "mnemonic": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "j_opcode",
+            "type": "j_type_mnemonic",
             "named": true
           }
         ]
@@ -235,7 +161,7 @@
           }
         ]
       },
-      "target": {
+      "symbol": {
         "multiple": false,
         "required": true,
         "types": [
@@ -264,46 +190,6 @@
     }
   },
   {
-    "type": "load_instruction",
-    "named": true,
-    "fields": {
-      "address": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "memory",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "opcode": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "load_opcode",
-            "named": true
-          }
-        ]
-      },
-      "rd": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "register",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "memory",
     "named": true,
     "fields": {
@@ -323,10 +209,6 @@
         "types": [
           {
             "type": "number",
-            "named": true
-          },
-          {
-            "type": "register",
             "named": true
           }
         ]
@@ -348,49 +230,15 @@
     }
   },
   {
-    "type": "one_operand_instruction",
+    "type": "r_type_format",
     "named": true,
     "fields": {
-      "opcode": {
+      "mnemonic": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "one_operand_opcode",
-            "named": true
-          }
-        ]
-      },
-      "operand": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "register",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "rr_instruction",
-    "named": true,
-    "fields": {
-      "opcode": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "rr_opcode",
+            "type": "r_type_mnemonic",
             "named": true
           }
         ]
@@ -406,7 +254,7 @@
         ]
       },
       "rs1": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
@@ -418,122 +266,30 @@
     }
   },
   {
-    "type": "rri_instruction",
+    "type": "s_type_format",
     "named": true,
     "fields": {
-      "immediate": {
+      "memory": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "number",
+            "type": "memory",
             "named": true
           }
         ]
       },
-      "opcode": {
+      "mnemonic": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "rri_opcode",
-            "named": true
-          }
-        ]
-      },
-      "rd": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "register",
-            "named": true
-          }
-        ]
-      },
-      "rs1": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "register",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "rrr_instruction",
-    "named": true,
-    "fields": {
-      "opcode": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "rrr_opcode",
-            "named": true
-          }
-        ]
-      },
-      "rd": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "register",
-            "named": true
-          }
-        ]
-      },
-      "rs1": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "register",
+            "type": "s_type_mnemonic",
             "named": true
           }
         ]
       },
       "rs2": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "register",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "shift_immediate_instruction",
-    "named": true,
-    "fields": {
-      "immediate": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "number",
-            "named": true
-          }
-        ]
-      },
-      "opcode": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "shift_immediate_opcode",
-            "named": true
-          }
-        ]
-      },
-      "rd": {
         "multiple": false,
         "required": true,
         "types": [
@@ -585,58 +341,6 @@
     }
   },
   {
-    "type": "store_instruction",
-    "named": true,
-    "fields": {
-      "address": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "memory",
-            "named": true
-          }
-        ]
-      },
-      "opcode": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "store_opcode",
-            "named": true
-          }
-        ]
-      },
-      "rs": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "register",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "zero_operand_instruction",
-    "named": true,
-    "fields": {
-      "opcode": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "zero_operand_opcode",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "\n",
     "named": false
   },
@@ -665,7 +369,7 @@
     "named": false
   },
   {
-    "type": "branch_opcode",
+    "type": "b_type_mnemonic",
     "named": true
   },
   {
@@ -674,15 +378,7 @@
     "extra": true
   },
   {
-    "type": "condition",
-    "named": true
-  },
-  {
-    "type": "conditional_move_opcode",
-    "named": true
-  },
-  {
-    "type": "cs_opcode",
+    "type": "i_format_mnemonic",
     "named": true
   },
   {
@@ -690,11 +386,7 @@
     "named": true
   },
   {
-    "type": "j_opcode",
-    "named": true
-  },
-  {
-    "type": "load_opcode",
+    "type": "j_type_mnemonic",
     "named": true
   },
   {
@@ -702,7 +394,7 @@
     "named": true
   },
   {
-    "type": "one_operand_opcode",
+    "type": "r_type_mnemonic",
     "named": true
   },
   {
@@ -710,27 +402,7 @@
     "named": true
   },
   {
-    "type": "rr_opcode",
-    "named": true
-  },
-  {
-    "type": "rri_opcode",
-    "named": true
-  },
-  {
-    "type": "rrr_opcode",
-    "named": true
-  },
-  {
-    "type": "shift_immediate_opcode",
-    "named": true
-  },
-  {
-    "type": "store_opcode",
-    "named": true
-  },
-  {
-    "type": "zero_operand_opcode",
+    "type": "s_type_mnemonic",
     "named": true
   }
 ]

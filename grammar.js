@@ -1,4 +1,3 @@
-/* TODO: Support for compare and select instructions */
 module.exports = grammar({
   name: 'hasm',
 
@@ -31,130 +30,97 @@ module.exports = grammar({
     ),
 
     instruction: $ => choice(
-      $.rrr_instruction,
-      $.rri_instruction,
-      $.rr_instruction,
-      $.shift_immediate_instruction,
-      $.load_instruction,
-      $.store_instruction,
-      $.branch_instruction,
-      $.j_instruction,
-      $.conditional_move_instruction,
-      $.cs_instruction,
-      $.one_operand_instruction,
-      $.zero_operand_instruction
+      $.r_type_format,
+      $.i_type_format,
+      $.s_type_format,
+      $.b_type_format,
+      $.j_type_format
     ),
 
-    rrr_instruction: $ => seq(
-      field('opcode', $.rrr_opcode),
+    r_type_format: $ => seq(
+      field('mnemonic', $.r_type_mnemonic),
       field('rd', $.register),
       ',',
       field('rs1', $.register),
-      ',',
-      field('rs2', $.register)
+      field('rs1', $.register)
     ),
 
-    rrr_opcode: $ => token(choice(
+    r_type_mnemonic: $ => token(choice(
       'add',
       'sub',
-      'mul',
-      'div',
-      'rem',
       'and',
       'or',
       'xor',
+      'sll',
+      'slr',
+      'sar',
       'slt',
       'sltu'
     )),
 
-    rri_instruction: $ => seq(
-      field('opcode', $.rri_opcode),
-      field('rd', $.register),
-      ',',
-      field('rs1', $.register),
-      ',',
-      field('immediate', $.number)
+    i_type_format: $ => choice(
+      seq(
+        field('mnemonic', $.i_format_mnemonic),
+        field('rd', $.register),
+        ',',
+        field('rs1', $.register),
+        ',',
+        field('immediate', $.number)
+      ),
+
+      seq(
+        field('mnemonic', $.i_format_mnemonic),
+        field('rd', $.register),
+        ',',
+        field('memory', $.memory)
+      ),
     ),
 
-    rri_opcode: $ => token(choice(
+    i_format_mnemonic: $ => token(choice(
       'addi',
       'andi',
       'ori',
       'xori',
-      'slti',
-      'sltui',
-      'jalr'
-    )),
-
-    j_instruction: $ => seq(
-      field('opcode', $.j_opcode),
-      field('rd', $.register),
-      ',',
-      field('target', $.identifier)
-    ),
-
-    j_opcode: $ => token(choice(
-      'jal'
-    )),
-
-    rr_instruction: $ => seq(
-      field('opcode', $.rr_opcode),
-      field('rd', $.register),
-      ',',
-      field('rs1', $.register)
-    ),
-
-    rr_opcode: $ => token(choice(
-      'sll',
-      'slr',
-      'sar'
-    )),
-
-    shift_immediate_instruction: $ => seq(
-      field('opcode', $.shift_immediate_opcode),
-      field('rd', $.register),
-      ',',
-      field('immediate', $.number)
-    ),
-
-    shift_immediate_opcode: $ => token(choice(
       'slli',
       'slri',
-      'sari'
-    )),
+      'sari',
+      'slti',
+      'sltui',
 
-    load_instruction: $ => seq(
-      field('opcode', $.load_opcode),
-      field('rd', $.register),
-      ',',
-      field('address', choice(
-        $.memory,
-        $.number
-      ))
-    ),
-
-    load_opcode: $ => token(choice(
       'lb',
       'lq',
       'lh',
       'lw',
       'lbu',
       'lqu',
-      'lhu'
+      'lhu',
+
+      'jral'
     )),
 
-    store_instruction: $ => seq(
-      field('opcode', $.store_opcode),
-      field('address', $.memory),
+    j_type_format: $ => seq(
+      field('mnemonic', $.j_type_mnemonic),
+      field('rd', $.register),
       ',',
-      field('rs', $.register)
+      field('symbol', $.identifier)
     ),
 
-    store_opcode: $ => token(choice(
+    j_type_mnemonic: $ => token(
+      'jal'
+    ),
+
+    s_type_format: $ => seq(
+      field('mnemonic', $.s_type_mnemonic),
+      field('memory', $.memory),
+      ',',
+      field('rs2', $.register)
+    ),
+
+    s_type_mnemonic: $ => token(choice(
       'sb',
       'sq',
       'sh',
-      'sw'
+      'sw',
     )),
 
     memory: $ => seq(
@@ -164,7 +130,6 @@ module.exports = grammar({
         seq(
           field('operator', choice('+', '-')),
           field('offset', choice(
-            $.register,
             $.number
           ))
         )
@@ -172,95 +137,24 @@ module.exports = grammar({
       ']'
     ),
 
-    branch_instruction: $ => seq(
-      field('opcode', $.branch_opcode),
+    b_type_format: $ => seq(
+      field('mnemonic', $.b_type_mnemonic),
       field('rs1', $.register),
       ',',
       field('rs2', $.register),
       ',',
-      field('target', $.identifier)
+      field('symbol', $.identifier)
     ),
 
-    branch_opcode: $ => token(choice(
+    b_type_mnemonic: $ => token(choice(
       'beq',
       'bne',
       'blt',
       'bge',
-      'bltu',
-      'bgeu'
-    )),
-
-    conditional_move_instruction: $ => seq(
-      field('opcode', $.conditional_move_opcode),
-      field('rd', $.register),
-      ',',
-      field('value', $.number),
-      ',',
-      field('condition', $.number)
-    ),
-
-    conditional_move_opcode: $ => token(choice(
-      'movz',
-      'movp',
-      'movn'
-    )),
-
-    cs_instruction: $ => seq(
-      field('opcode', $.cs_opcode),
-      field('rd', $.register),
-      ',',
-      field('rs1', $.register),
-      ',',
-      field('rs2', $.register),
-      ',',
-      field('condition', $.condition)
-    ),
-
-    cs_opcode: $=> token(choice(
-      'csl',
-      'csinc',
-      'csneg'
-    )),
-
-    condition: $ => token(choice(
-      'eq',
-      'ne',
-      'lt',
-      'ge',
-      'ltu',
-      'geu'
-    )),
-
-    one_operand_instruction: $ => seq(
-      field('opcode', $.one_operand_opcode),
-      field('operand', choice(
-        $.register,
-        $.identifier,
-        $.number
-      ))
-    ),
-
-    one_operand_opcode: $ => token(choice(
-      'not',
-      'jmp',
-      'call'
-    )),
-
-    zero_operand_instruction: $ => field(
-      'opcode',
-      $.zero_operand_opcode
-    ),
-
-    zero_operand_opcode: $ => token(choice(
-      'scall',
-      'strap',
-      'sret',
-      'wfi',
-      'ret'
     )),
 
     register: $ => token(
-      /r([0-9]|[12][0-9]|3[01])/
+      /h([0-9]|[12][0-9]|3[01])/
     ),
 
     number: $ => token(
